@@ -1,0 +1,17 @@
+.next/
+node_modules/
+out/
+dist/
+build/
+.vercel/
+.env*
+!.env.example
+*.log
+test.py
+
+# Raw source assets kept locally; optimized copies live in public/
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+/*.mp4
