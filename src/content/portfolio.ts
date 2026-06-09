@@ -50,29 +50,38 @@ export const profileLinks = {
 export const heroChannels = [
   {
     title: "Hackonomics",
-    company: "For HackerRank",
+    role: "Short and Long-Form Content Writing",
+    company: "HackerRank",
+    companyLogo: "/hr-logo.svg",
+    tagline: "AI-led developer and future-of-work media channel",
+    accent: "emerald",
     metric: "100% AI Content",
     detail: "120K Followers · YT + IG",
     image: "/hackonomics-channel.png",
-    logo: "/hackonomics-logo.jpg",
     href: "https://www.youtube.com/@Hackonomics_ai"
   },
   {
     title: "Builders Central",
-    company: "For Zoho",
+    role: "Long-Form Writing and Creative Direction",
+    company: "Zoho",
+    companyLogo: "/zoho-logo.png",
+    tagline: "Builder education across no-code, AI tools, and startup systems",
+    accent: "lime",
     metric: "400K+ Followers · YT + IG",
     detail: "Top Zoho Organic Media Asset",
     image: "/builders-central-channel.png",
-    logo: "/builders-central-logo.jpg",
     href: "https://www.youtube.com/@BuildersCentral"
   },
   {
     title: "The Sizzle Room",
-    company: "For Licious",
+    role: "Creative Direction and AI Visual Artist",
+    company: "Licious",
+    companyLogo: "/licious-logo.svg",
+    tagline: "Experimental food storytelling and cinematic social IP",
+    accent: "cyan",
     metric: "0 to 50K Followers · 14 Posts",
     detail: "0 to 100K Followers · 3 Months",
     image: "/sizzle-room-channel.png",
-    logo: "/sizzle-room-logo.jpg",
     href: "https://www.youtube.com/@SizzleRoom/videos"
   }
 ] as const;
@@ -80,25 +89,20 @@ export const heroChannels = [
 export const about = {
   title: "About",
   paragraphs: [
-    "I started in machine learning and data systems.",
-    "Over time, I became obsessed with a different problem:\nhow AI changes storytelling, production, and the economics of attention itself.",
-    "Today, I work at the intersection of:",
-    "My work spans:\nAI-generated visuals, high-retention scripting, creative direction, AI filmmaking, and scalable content systems designed for modern internet platforms.",
-    "Currently working across AI-native media ecosystems building:"
+    "I work at the intersection of AI filmmaking, cinematic storytelling, and generative media systems.",
+    "My work spans scripting, creative direction, social media strategy, AI visuals, shoot direction, and high-retention content built for modern internet platforms.",
+    "With a background in AI and Machine Learning, I combine technical thinking with visual storytelling to build AI-native media experiences for the next era of content."
   ],
-  intersection: [
-    "Generative AI",
+  keywords: [
+    "AI Filmmaking",
     "Cinematic Storytelling",
-    "AI-Assisted Production",
-    "Social Distribution",
-    "Media Systems",
-    "Technical Workflows"
-  ],
-  building: [
-    "AI-First Content Workflows",
-    "Cinematic Generative Visuals",
-    "Distribution-focused Storytelling",
-    "Platform-native Media Systems"
+    "Generative Media Systems",
+    "Scripting",
+    "Creative Direction",
+    "Social Media Strategy",
+    "AI Visuals",
+    "Shoot Direction",
+    "High-Retention Content"
   ]
 } as const;
 
@@ -110,6 +114,8 @@ export const featuredIps = [
     brand: "HACKERRANK",
     image: "/hackonomics-channel.png",
     logo: "/hackonomics-logo.jpg",
+    companyLogo: "/hr-logo.svg",
+    reelEmbed: "https://www.instagram.com/reel/DQGmbgXj3ku/embed",
     color: "emerald",
     summary:
       "Hackonomics is YAAS's first global channel from India. No human presenter, no traditional shoot format, just an AI-led channel for HackerRank built around global tech and developer stories.",
@@ -149,6 +155,8 @@ export const featuredIps = [
     brand: "ZOHO",
     image: "/builders-central-channel.png",
     logo: "/builders-central-logo.jpg",
+    companyLogo: "/zoho-logo.png",
+    reelEmbed: "https://www.instagram.com/reel/DSxiQ3gk8Ka/embed",
     color: "lime",
     summary:
       "We scaled Builders Central into one of Zoho's largest organic media assets around no-code. The channel was built across short-form, long-form, and AI-assisted content, and has grown into a strong community of tech and builder audiences.",
@@ -193,6 +201,8 @@ export const featuredIps = [
     brand: "LICIOUS",
     image: "/sizzle-room-channel.png",
     logo: "/sizzle-room-logo.jpg",
+    companyLogo: "/licious-logo.svg",
+    reelEmbed: "https://www.instagram.com/reel/DQOKHu8kVrT/embed",
     color: "cyan",
     summary:
       "A food IP created for Licious around a character of a \"Meat Nerd.\" Instead of making direct food ads, we used food, culture, trends, and strong visuals to make meat content interesting.",
@@ -231,8 +241,20 @@ export const featuredIps = [
 export const personalChannels = [
   {
     title: "raykar_ai",
+    brand: "AI FILMMAKING LAB",
     image: "/raykar-ai-channel.png",
     logo: "/raykar-ai-logo.jpg",
+    companyLogo: "/raykar-ai-logo.jpg",
+    color: "emerald",
+    summary:
+      "Experimental AI filmmaking and cinematic visual explorations. Exploring how generative systems change film, aesthetics, narrative, and visual culture.",
+    stats: ["AI Films", "Mood Pieces", "Concept Visuals"],
+    links: [
+      {
+        label: "Instagram",
+        href: "https://www.instagram.com/raykar_ai"
+      }
+    ],
     href: "https://www.instagram.com/raykar_ai",
     description:
       "Experimental AI filmmaking and cinematic visual explorations.",
@@ -257,8 +279,20 @@ export const personalChannels = [
   },
   {
     title: "kaustubh_raykar",
+    brand: "AI FILMMAKING LAB",
     image: "/kaustubh-raykar-channel.png",
     logo: "/kaustubh-raykar-logo.jpg",
+    companyLogo: "/kaustubh-raykar-logo.jpg",
+    color: "cyan",
+    summary:
+      "Visual experiments, cinematic studies, and AI-generated creative explorations built around visual storytelling, atmosphere design, frame composition, and AI-assisted aesthetics.",
+    stats: ["Visual Essays", "AI Art", "Generative Photography"],
+    links: [
+      {
+        label: "Instagram",
+        href: "https://www.instagram.com/kaustubh_raykar"
+      }
+    ],
     href: "https://www.instagram.com/kaustubh_raykar",
     description:
       "Visual experiments, cinematic studies, and AI-generated creative explorations.",
@@ -277,6 +311,99 @@ export const personalChannels = [
       "Generative Photography",
       "Motion Studies",
       "UGC-Style Concepts"
+    ]
+  }
+] as const;
+
+export const personalReelCollections = [
+  {
+    title: "AI Tutorials",
+    description:
+      "Educational reels breaking down applied AI workflows, tools, and creative systems.",
+    accent: "emerald",
+    reels: [
+      {
+        title: "AI Tutorial 01",
+        embed: "https://www.instagram.com/reel/DWYIowvjM8L/embed",
+        href: "https://www.instagram.com/reel/DWYIowvjM8L/"
+      },
+      {
+        title: "AI Tutorial 02",
+        embed: "https://www.instagram.com/reel/DVJiosSjG8v/embed",
+        href: "https://www.instagram.com/reel/DVJiosSjG8v/"
+      }
+    ]
+  },
+  {
+    title: "AI Trends",
+    description:
+      "Internet-native breakdowns of AI shifts, tools, behaviors, and emerging creative patterns.",
+    accent: "lime",
+    reels: [
+      {
+        title: "AI Trend 01",
+        embed: "https://www.instagram.com/reel/DYHaRqgvmZA/embed",
+        href: "https://www.instagram.com/reel/DYHaRqgvmZA/"
+      },
+      {
+        title: "AI Trend 02",
+        embed: "https://www.instagram.com/reel/DUkGS61DM83/embed",
+        href: "https://www.instagram.com/reel/DUkGS61DM83/"
+      }
+    ]
+  },
+  {
+    title: "Realistic AI Visuals",
+    description:
+      "Cinematic AI visuals focused on realism, atmosphere, visual continuity, and polished composition.",
+    accent: "cyan",
+    reels: [
+      {
+        title: "Realistic Visual 01",
+        embed: "https://www.instagram.com/reel/DWdu3lBE2_c/embed",
+        href: "https://www.instagram.com/reel/DWdu3lBE2_c/"
+      },
+      {
+        title: "Realistic Visual 02",
+        embed: "https://www.instagram.com/reel/DUkGS61DM83/embed",
+        href: "https://www.instagram.com/reel/DUkGS61DM83/"
+      }
+    ]
+  },
+  {
+    title: "AI Ads",
+    description:
+      "Performance-facing AI ad concepts built around fast hooks, social-native framing, and platform rhythm.",
+    accent: "emerald",
+    reels: [
+      {
+        title: "AI Ad 01",
+        embed: "https://www.instagram.com/reel/DWRPu1qDLE1/embed",
+        href: "https://www.instagram.com/reel/DWRPu1qDLE1/"
+      },
+      {
+        title: "AI Ad 02",
+        embed: "https://www.instagram.com/reel/DWEKea-DP4K/embed",
+        href: "https://www.instagram.com/reel/DWEKea-DP4K/"
+      }
+    ]
+  },
+  {
+    title: "AI Visual Short Films",
+    description:
+      "Experimental visual narratives exploring cinematic AI worlds, mood, pacing, and synthetic film language.",
+    accent: "cyan",
+    reels: [
+      {
+        title: "AI Short Film 01",
+        embed: "https://www.instagram.com/reel/DYSDLiXPm-d/embed",
+        href: "https://www.instagram.com/reel/DYSDLiXPm-d/"
+      },
+      {
+        title: "AI Short Film 02",
+        embed: "https://www.instagram.com/reel/DRM_XXfjKuz/embed",
+        href: "https://www.instagram.com/reel/DRM_XXfjKuz/"
+      }
     ]
   }
 ] as const;

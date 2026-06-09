@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { ArrowUpRight, CodeXml, ExternalLink, Globe2, Mail } from "lucide-react";
 import Image from "next/image";
+import { AnimatedKeywordCloud } from "@/components/motion/animated-keyword-cloud";
 import { AnimatedPillPair } from "@/components/motion/animated-pill-pair";
 import { Reveal } from "@/components/motion/reveal";
 import { InteractiveIpShowcase } from "@/components/sections/interactive-ip-showcase";
+import { PersonalReelGallery } from "@/components/sections/personal-reel-gallery";
 import {
   about,
-  creativeFormats,
-  currentInterests,
   experience,
   featuredIps,
   featuredWorkTitle,
@@ -17,11 +17,9 @@ import {
   heroChannels,
   heroMetrics,
   personalChannels,
+  personalReelCollections,
   profileLinks,
-  selectedProjects,
   signatureLine,
-  techStack,
-  whatIDo
 } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -30,12 +28,31 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Systems", href: "#systems" },
   { label: "Films", href: "#films" },
-  { label: "Formats", href: "#formats" },
-  { label: "Stack", href: "#stack" },
+  { label: "Reels", href: "#reels" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" }
 ] as const;
+
+const heroAccentClasses = {
+  emerald: {
+    border: "hover:border-emerald-300/45",
+    glow: "from-emerald-300/28",
+    text: "text-emerald-200",
+    pill: "border-emerald-200/22 bg-emerald-300/[0.075]"
+  },
+  lime: {
+    border: "hover:border-lime-300/45",
+    glow: "from-lime-300/28",
+    text: "text-lime-200",
+    pill: "border-lime-200/22 bg-lime-300/[0.075]"
+  },
+  cyan: {
+    border: "hover:border-cyan-300/45",
+    glow: "from-cyan-300/28",
+    text: "text-cyan-200",
+    pill: "border-cyan-200/22 bg-cyan-300/[0.075]"
+  }
+} as const;
 
 function Lines({ lines, className }: { lines: readonly string[]; className?: string }) {
   return (
@@ -202,8 +219,8 @@ export default function Home() {
             ))}
           </Reveal>
 
-          <Reveal className="mt-12 w-full max-w-3xl rounded-full border border-white/14 bg-white/[0.022] p-2 shadow-2xl shadow-cyan-950/15 backdrop-blur-md ring-1 ring-white/[0.025]" delay={260}>
-            <div className="rounded-full bg-white/[0.015] px-7 py-4 text-center text-sm font-medium leading-6 tracking-[0.02em] text-white/84 backdrop-blur-sm">
+          <Reveal className="mt-12 w-full max-w-3xl rounded-full border border-white/12 bg-white/[0.012] p-2 shadow-2xl shadow-cyan-950/10 ring-1 ring-white/[0.02]" delay={260}>
+            <div className="rounded-full bg-white/[0.008] px-7 py-4 text-center text-sm font-medium leading-6 tracking-[0.02em] text-white/86">
               <span>
                 {hero.currentlyOperatingAcross}
               </span>
@@ -211,56 +228,100 @@ export default function Home() {
           </Reveal>
 
           <Reveal className="mt-10 grid w-full max-w-5xl gap-3 sm:grid-cols-3" delay={340}>
-            {heroChannels.map((channel) => (
-              <a
-                className="group relative min-h-44 overflow-hidden border border-white/14 bg-white/[0.035] p-5 text-left shadow-2xl shadow-black/30 backdrop-blur-xl ring-1 ring-white/[0.035] transition hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.06]"
-                href={channel.href}
-                key={channel.title}
-                rel="noreferrer"
-                target="_blank"
-                style={{
-                  clipPath:
-                    "polygon(0 0, calc(100% - 1.25rem) 0, 100% 1.25rem, 100% 100%, 0 100%)"
-                }}
-              >
-                <Image
-                  alt={`${channel.title} channel preview`}
-                  className="absolute inset-0 h-full w-full object-cover opacity-22 brightness-125 saturate-125 transition duration-500 group-hover:scale-105 group-hover:opacity-34"
-                  fill
-                  sizes="(min-width: 640px) 33vw, 100vw"
-                  src={channel.image}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/74 to-black/18" />
-                <div className="relative z-10">
+            {heroChannels.map((channel) => {
+              const accent = heroAccentClasses[channel.accent];
+
+              return (
+                <a
+                  className={cn(
+                    "group relative min-h-52 overflow-hidden border border-white/14 bg-white/[0.035] p-5 text-left shadow-2xl shadow-black/30 backdrop-blur-xl ring-1 ring-white/[0.035] transition hover:-translate-y-1 hover:bg-white/[0.065]",
+                    accent.border
+                  )}
+                  href={channel.href}
+                  key={channel.title}
+                  rel="noreferrer"
+                  target="_blank"
+                  style={{
+                    clipPath:
+                      "polygon(0 0, calc(100% - 1.25rem) 0, 100% 1.25rem, 100% 100%, 0 100%)"
+                  }}
+                >
                   <Image
-                    alt={`${channel.title} logo`}
-                    className="mb-4 size-10 border border-white/18 object-cover"
-                    height={40}
-                    src={channel.logo}
-                    width={40}
+                    alt={`${channel.title} channel preview`}
+                    className="absolute inset-0 h-full w-full object-cover opacity-18 brightness-125 saturate-125 transition duration-500 group-hover:scale-105 group-hover:opacity-30"
+                    fill
+                    sizes="(min-width: 640px) 33vw, 100vw"
+                    src={channel.image}
                   />
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h2 className="font-serif text-3xl font-medium tracking-[-0.05em] text-white">
-                        {channel.title}
-                      </h2>
-                      <p className="mt-1 text-xs font-semibold uppercase tracking-[0.26em] text-[var(--gold)]/80">
-                        {channel.company}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/72 to-black/18" />
+                  <div
+                    className={cn(
+                      "absolute inset-x-0 top-0 h-px bg-gradient-to-r via-white/35 to-transparent",
+                      accent.glow
+                    )}
+                  />
+                  <div
+                    className={cn(
+                      "absolute -right-16 -top-16 size-44 rounded-full bg-gradient-to-br to-transparent blur-3xl transition duration-500 group-hover:scale-125",
+                      accent.glow
+                    )}
+                  />
+                  <div className="relative z-10">
+                    <p
+                      className={cn(
+                        "mb-4 text-[0.7rem] font-black uppercase leading-4 tracking-[0.2em]",
+                        accent.text
+                      )}
+                    >
+                      {channel.role}
+                    </p>
+                    <div className="mb-5 flex min-h-12 items-center gap-3">
+                      <span className="grid size-20 place-items-center rounded-2xl border border-white/18 bg-white px-3 shadow-xl shadow-black/30 transition group-hover:scale-105">
+                        <Image
+                          alt={`${channel.company} logo`}
+                          className="max-h-14 w-auto object-contain"
+                          height={56}
+                          src={channel.companyLogo}
+                          width={148}
+                        />
+                      </span>
+                      <div>
+                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-white/42">
+                          IP
+                        </p>
+                        <p className="mt-1 text-sm font-black uppercase tracking-[0.18em] text-emerald-300">
+                          {channel.company}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h2 className="font-serif text-3xl font-medium tracking-[-0.05em] text-white">
+                          {channel.title}
+                        </h2>
+                        <p className="mt-1 max-w-xs text-xs font-medium leading-5 text-white/58">
+                          {channel.tagline}
+                        </p>
+                      </div>
+                      <ArrowUpRight className="size-4 text-white/42 transition group-hover:text-white" />
+                    </div>
+                    <div className="mt-5 space-y-2">
+                      <p
+                        className={cn(
+                          "rounded-full border px-3 py-2 text-sm font-bold leading-5 text-white backdrop-blur-xl",
+                          accent.pill
+                        )}
+                      >
+                        {channel.metric}
+                      </p>
+                      <p className="rounded-full border border-white/10 bg-black/20 px-3 py-2 text-xs font-medium leading-5 text-white/70 backdrop-blur-xl">
+                        {channel.detail}
                       </p>
                     </div>
-                    <ArrowUpRight className="size-4 text-white/42 transition group-hover:text-white" />
                   </div>
-                  <div className="mt-5 space-y-2">
-                    <p className="rounded-full border border-white/12 bg-white/[0.045] px-3 py-2 text-sm font-semibold leading-5 text-white backdrop-blur-xl">
-                      {channel.metric}
-                    </p>
-                    <p className="rounded-full border border-white/10 bg-black/18 px-3 py-2 text-xs leading-5 text-white/68 backdrop-blur-xl">
-                      {channel.detail}
-                    </p>
-                  </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </Reveal>
         </div>
       </section>
@@ -288,14 +349,25 @@ export default function Home() {
 
       <SectionFrame background="/section-bg-02.webp" id="about">
         <SectionHeader title={about.title} />
-        <Reveal className="mx-auto grid max-w-6xl gap-5 md:grid-cols-[1.05fr_0.95fr]">
-          <GlassCard className="p-8 md:p-10">
-            <Lines className="text-lg leading-8 text-white/76" lines={about.paragraphs.slice(0, 3)} />
-            <TextList items={about.intersection} />
-          </GlassCard>
-          <GlassCard className="p-8 md:p-10">
-            <Lines className="text-lg leading-8 text-white/76" lines={about.paragraphs.slice(3)} />
-            <TextList items={about.building} />
+        <Reveal className="mx-auto max-w-5xl">
+          <GlassCard className="p-8 md:p-12">
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div>
+                <p className="mb-5 text-xs font-bold uppercase tracking-[0.42em] text-[var(--gold)]">
+                  AI · Storytelling · Media Systems
+                </p>
+                <Lines
+                  className="text-xl leading-9 text-white/82 md:text-2xl md:leading-10"
+                  lines={about.paragraphs}
+                />
+              </div>
+              <div>
+                <p className="mb-4 font-serif text-4xl font-medium tracking-[-0.05em] text-white">
+                  What I build with
+                </p>
+                <AnimatedKeywordCloud items={about.keywords} />
+              </div>
+            </div>
           </GlassCard>
         </Reveal>
       </SectionFrame>
@@ -309,179 +381,60 @@ export default function Home() {
 
       <SectionFrame background="/section-bg-04.webp" id="films">
         <SectionHeader eyebrow="FILMS · VISUALS · EXPERIMENTS" title="Personal AI Channels" />
-        <div className="mx-auto grid max-w-6xl gap-5 lg:grid-cols-2">
-          {personalChannels.map((channel, index) => (
-            <Reveal as="article" delay={index * 90} key={channel.title}>
-              <a
-                className="group relative block overflow-hidden border border-white/14 bg-white/[0.032] p-5 shadow-2xl shadow-black/40 backdrop-blur-xl ring-1 ring-white/[0.035] transition duration-500 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.055]"
-                href={channel.href}
-                rel="noreferrer"
-                target="_blank"
-                style={{
-                  clipPath:
-                    "polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem))"
-                }}
-              >
-                <div className="absolute -right-20 -top-20 size-64 rounded-full bg-cyan-300/10 blur-3xl transition duration-700 group-hover:scale-125" />
-                <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
-                <div className="relative mb-6 overflow-hidden rounded-[1.6rem] border border-white/12 bg-black/50">
-                  <Image
-                    alt={`${channel.title} channel preview`}
-                    className="aspect-[16/9] w-full object-contain p-3 opacity-88 brightness-110 contrast-110 saturate-125 transition duration-700 group-hover:scale-[1.025] group-hover:opacity-100"
-                    height={360}
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    src={channel.image}
-                    width={640}
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/38 via-transparent to-white/[0.03]" />
-                </div>
-                <div className="relative z-10 p-2">
-                  <div className="mb-5 flex items-center gap-4">
-                    <Image
-                      alt={`${channel.title} logo`}
-                      className="size-14 border border-white/20 object-cover"
-                      height={56}
-                      src={channel.logo}
-                      width={56}
-                    />
-                    <div>
-                      <h3 className="font-serif text-5xl font-medium leading-none tracking-[-0.06em] text-white">
-                        {channel.title}
-                      </h3>
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.32em] text-white/50">
-                        AI Filmmaking Lab
-                      </p>
-                    </div>
-                    <ArrowUpRight className="ml-auto size-5 text-white/44 transition group-hover:text-white" />
-                  </div>
-                  <p className="max-w-xl text-lg leading-7 text-white/82">
-                    {channel.description}
-                  </p>
-                  <p className="mt-4 max-w-xl text-sm leading-6 text-white/60">
-                    {channel.exploration}
-                  </p>
-                  <TextList items={channel.focus} />
-                  <AnimatedPillPair className="mt-3" items={channel.formats} />
-                </div>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-      </SectionFrame>
-
-      <SectionFrame background="/section-bg-05.webp" id="formats">
-        <SectionHeader eyebrow="CREATIVE FORMATS I WORK ACROSS" title="Creative Formats" />
-        <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {creativeFormats.map((format, index) => (
-            <Reveal as="article" delay={index * 55} key={format.title}>
-              <GlassCard className="h-full">
-                <p className="mb-6 text-xs font-bold uppercase tracking-[0.4em] text-[var(--gold)]">
-                  0{index + 1}
-                </p>
-                <h3 className="font-serif text-4xl font-medium tracking-[-0.05em] text-white">
-                  {format.title}
-                </h3>
-                <p className="mt-5 text-sm leading-7 text-white/68">
-                  {format.description}
-                </p>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-      </SectionFrame>
-
-      <SectionFrame background="/section-bg-06.webp" id="interests">
         <Reveal>
-          <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.4rem] border border-white/14 bg-white/[0.032] p-8 shadow-2xl shadow-black/35 backdrop-blur-xl ring-1 ring-white/[0.035] md:p-12">
-            <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
-              <div>
-                <p className="mb-4 text-xs font-bold uppercase tracking-[0.42em] text-[var(--gold)]">
-                  CURRENT INTERESTS
-                </p>
-                <h2 className="font-serif text-5xl font-medium leading-none tracking-[-0.06em] text-white md:text-7xl">
-                  Building the future language of AI media.
-                </h2>
-              </div>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {currentInterests.map((interest) => (
-                  <span
-                    className="rounded-full border border-white/14 bg-white/[0.065] px-4 py-2 text-sm text-white/78 shadow-inner shadow-white/10 backdrop-blur-xl ring-1 ring-white/[0.035]"
-                    key={interest}
-                  >
-                    {interest}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <InteractiveIpShowcase items={personalChannels} />
         </Reveal>
       </SectionFrame>
 
-      <SectionFrame background="/section-bg-07.webp" id="services">
-        <SectionHeader eyebrow="WHAT I DO SECTION" title="What I Do" />
-        <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {whatIDo.map((item, index) => (
-            <Reveal as="article" delay={index * 55} key={item.title}>
-              <GlassCard className="h-full">
-                <h3 className="font-serif text-3xl font-medium tracking-[-0.04em]">
-                  {item.title}
-                </h3>
-                <Lines className="mt-5 text-sm leading-7 text-white/70" lines={item.paragraphs} />
-                {"list" in item ? <TextList items={item.list} /> : null}
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-      </SectionFrame>
-
-      <SectionFrame background="/section-bg-09.webp" id="stack">
-        <SectionHeader eyebrow="TECH STACK SECTION" title="Tech Stack" />
-        <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {techStack.map((stack, index) => (
-            <Reveal as="article" delay={index * 70} key={stack.title}>
-              <GlassCard className="h-full">
-                <h3 className="font-serif text-3xl font-medium tracking-[-0.04em]">
-                  {stack.title}
-                </h3>
-                <TextList items={stack.items} />
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
+      <SectionFrame background="/section-bg-05.webp" id="reels">
+        <SectionHeader eyebrow="PERSONAL REEL SYSTEMS" title="Reels, Experiments & Visual Proof" />
+        <Reveal>
+          <PersonalReelGallery collections={personalReelCollections} />
+        </Reveal>
       </SectionFrame>
 
       <SectionFrame background="/section-bg-10.webp" id="experience">
         <SectionHeader eyebrow="EXPERIENCE SECTION" title="Experience" />
-        <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-2 xl:grid-cols-3">
           {experience.map((role, index) => (
             <Reveal as="article" delay={index * 90} key={role.title}>
-              <GlassCard className="h-full p-8">
-                <p className="mb-5 inline-flex rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--gold)]">
-                  {role.duration}
-                </p>
-                <h3 className="font-serif text-4xl font-medium tracking-[-0.05em]">
-                  {role.title}
-                </h3>
-                <Lines className="mt-5 text-sm leading-7 text-white/70" lines={role.paragraphs} />
-                <TextList items={role.list} />
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-      </SectionFrame>
+              <div
+                className={cn(
+                  "group/card relative min-h-[19rem] overflow-hidden border border-white/14 bg-white/[0.032] p-6 shadow-2xl shadow-black/30 backdrop-blur-xl ring-1 ring-white/[0.035] transition-all duration-500 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.06]"
+                )}
+                style={{
+                  clipPath:
+                    "polygon(0 0, calc(100% - 1.25rem) 0, 100% 1.25rem, 100% 100%, 0 100%)"
+                }}
+                tabIndex={0}
+              >
+                <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                <div className="absolute -right-16 -top-16 size-44 rounded-full bg-cyan-300/10 blur-3xl transition duration-700 group-hover/card:scale-125" />
+                <div className="relative z-10 flex h-full flex-col">
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.34em] text-white/34">
+                      0{index + 1}
+                    </p>
+                    <p className="rounded-full border border-white/12 bg-white/[0.055] px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--gold)]">
+                      {role.duration}
+                    </p>
+                  </div>
 
-      <SectionFrame background="/section-bg-11.webp" id="projects">
-        <SectionHeader eyebrow="SELECTED PROJECTS SECTION" title="Selected Projects" />
-        <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2">
-          {selectedProjects.map((project, index) => (
-            <Reveal as="article" delay={index * 70} key={project.title}>
-              <GlassCard className="h-full p-8">
-                <h3 className="font-serif text-4xl font-medium tracking-[-0.05em]">
-                  {project.title}
-                </h3>
-                <Lines className="mt-6 text-sm leading-7 text-white/70" lines={project.paragraphs} />
-                {"list" in project ? <TextList items={project.list} /> : null}
-              </GlassCard>
+                  <h3 className="mt-6 font-serif text-3xl font-medium leading-none tracking-[-0.05em] text-white">
+                    {role.title}
+                  </h3>
+
+                  <div className="mt-5">
+                    <Lines className="text-sm leading-7 text-white/72" lines={role.paragraphs} />
+                  </div>
+
+                  <div className="mt-auto grid grid-rows-[0fr] pt-5 opacity-0 transition-all duration-500 group-hover/card:grid-rows-[1fr] group-hover/card:opacity-100 group-focus/card:grid-rows-[1fr] group-focus/card:opacity-100">
+                    <div className="overflow-hidden">
+                      <TextList items={role.list} />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>

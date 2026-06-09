@@ -4,10 +4,12 @@ import { animate } from "animejs";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { featuredIps } from "@/content/portfolio";
+import type { featuredIps, personalChannels } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
-type FeaturedIp = (typeof featuredIps)[number];
+type ShowcaseItem =
+  | (typeof featuredIps)[number]
+  | (typeof personalChannels)[number];
 
 const accentClasses = {
   emerald: "from-emerald-400/42 via-emerald-300/8 to-transparent",
@@ -18,7 +20,7 @@ const accentClasses = {
 export function InteractiveIpShowcase({
   items
 }: {
-  items: readonly FeaturedIp[];
+  items: readonly ShowcaseItem[];
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = items[activeIndex];
@@ -45,8 +47,21 @@ export function InteractiveIpShowcase({
     return null;
   }
 
+  const activeReelEmbed =
+    "reelEmbed" in activeItem ? activeItem.reelEmbed : undefined;
+  const hasAnyReels = items.some(
+    (item) => "reelEmbed" in item && Boolean(item.reelEmbed)
+  );
+
   return (
-    <div className="mx-auto grid max-w-6xl gap-4 lg:grid-cols-[1.08fr_0.92fr]">
+    <div
+      className={cn(
+        "mx-auto grid gap-4",
+        hasAnyReels
+          ? "max-w-7xl lg:grid-cols-[1fr_0.68fr_0.72fr]"
+          : "max-w-6xl lg:grid-cols-[1.08fr_0.92fr]"
+      )}
+    >
       <div
         ref={imageRef}
         className="relative min-h-[34rem] overflow-hidden border border-white/14 bg-black/35 shadow-2xl shadow-black/40 backdrop-blur-xl ring-1 ring-white/[0.035]"
@@ -67,7 +82,7 @@ export function InteractiveIpShowcase({
               )}
               height={40}
               key={item.title}
-              src={item.logo}
+              src={item.companyLogo}
               width={40}
             />
           ))}
@@ -77,7 +92,7 @@ export function InteractiveIpShowcase({
           className="h-full w-full object-contain p-4 opacity-94 brightness-110 contrast-110 saturate-125"
           fill
           priority={activeIndex === 0}
-          sizes="(min-width: 1024px) 58vw, 100vw"
+          sizes="(min-width: 1024px) 48vw, 100vw"
           src={activeItem.image}
         />
         <div
@@ -86,16 +101,16 @@ export function InteractiveIpShowcase({
             accentClasses[activeItem.color]
           )}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/28 to-black/12" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/28 to-black/12" />
         <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
           <div className="flex items-end justify-between gap-5">
             <div>
               <div className="mb-4 flex items-center gap-3">
                 <Image
                   alt={`${activeItem.title} logo`}
-                  className="size-12 border border-white/20 object-cover"
+                  className="size-12 border border-white/20 bg-white object-contain p-2"
                   height={48}
-                  src={activeItem.logo}
+                  src={activeItem.companyLogo}
                   width={48}
                 />
                 <div>
@@ -172,12 +187,12 @@ export function InteractiveIpShowcase({
                   <Image
                     alt={`${item.title} logo`}
                     className={cn(
-                      "size-14 object-cover transition duration-500 group-hover:scale-110",
+                      "size-14 bg-white object-contain p-2 transition duration-500 group-hover:scale-110",
                       isActive ? "opacity-100" : "opacity-70"
                     )}
                     height={56}
                     sizes="96px"
-                    src={item.logo}
+                    src={item.companyLogo}
                     width={56}
                   />
                 </div>
@@ -222,6 +237,45 @@ export function InteractiveIpShowcase({
           ))}
         </div>
       </div>
+
+      {hasAnyReels ? (
+        <div
+          className="relative min-h-[34rem] overflow-hidden border border-white/14 bg-black/50 shadow-2xl shadow-black/40 backdrop-blur-xl ring-1 ring-white/[0.035]"
+          style={{
+            clipPath:
+              "polygon(0 0, calc(100% - 1.5rem) 0, 100% 1.5rem, 100% 100%, 0 100%)"
+          }}
+        >
+          <div
+            className={cn(
+              "absolute inset-x-0 top-0 h-px bg-gradient-to-r",
+              accentClasses[activeItem.color]
+            )}
+          />
+          <div className="border-b border-white/10 p-4">
+            <p className="text-xs font-bold uppercase tracking-[0.34em] text-white/42">
+              Active Reel
+            </p>
+            <h3 className="mt-2 font-serif text-3xl font-medium tracking-[-0.05em] text-white">
+              {activeItem.title}
+            </h3>
+          </div>
+          {activeReelEmbed ? (
+            <iframe
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allowFullScreen
+              className="h-[30rem] w-full bg-black"
+              loading="lazy"
+              src={activeReelEmbed}
+              title={`${activeItem.title} Instagram reel`}
+            />
+          ) : (
+            <div className="grid h-[30rem] place-items-center px-6 text-center text-sm text-white/58">
+              Reel preview unavailable for this channel.
+            </div>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }

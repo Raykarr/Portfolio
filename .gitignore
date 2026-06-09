@@ -15,3 +15,5 @@ test.py
 /*.jpeg
 /*.webp
 /*.mp4
+
+.vercel
