@@ -40,7 +40,7 @@ export const signatureLine = "AI × MEDIA × DISTRIBUTION";
 
 export const profileLinks = {
   resume:
-    "https://drive.google.com/file/d/1_5wFDygh4Os5AgHfKBJ_6JgHpChCK7HO/view?usp=sharing",
+    "https://drive.google.com/file/d/1JT8KV4i_LZPsuSyEv9RRhj10JlFlDK4V/view?usp=sharing",
   linkedin: "https://www.linkedin.com/in/kaustubh-raykar",
   github: "https://github.com/raykarr",
   email: "mailto:raykarkaustubh@gmail.com",
